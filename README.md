@@ -14,6 +14,12 @@ You can read this first: https://raw.githubusercontent.com/Zero871015/ReversiGam
 
 ### Enjoy It!
 ---
+
+## Reference
+http://lazyfoo.net/tutorials/SDL/index.php
+
+---
+
 ## Contact
 * If there is any bug or question, you can use email contact me:
   * zero871015@gmail.com
