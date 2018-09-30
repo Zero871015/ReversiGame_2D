@@ -1,6 +1,6 @@
 // Name: Zero871015(B10615032)
 // Date: 2018/09/18
-// Last Update: 2018/09/20
+// Last Update: 2018/09/30
 // Problem statement: Reversi Game System
 
 #include "Reversi.h"
@@ -248,7 +248,7 @@ void Reversi::Move(int i, int j)
 		
 		if(SearchAll()==0)	//someone can not play any piece
 			whosTurn = whosTurn == BLACK ? WHITE : BLACK;
-			
+		Mix_PlayChannel(-1, gSniper, 0);
 		UpdateScreen();
 		if (AImode&&whosTurn == WHITE)
 		{
@@ -262,6 +262,12 @@ void Reversi::Move(int i, int j)
 void Reversi::AIPlay()
 {
 	Reversi *reversi = Reversi::Instance();
+	for (int i = 0; i < 64; i++)
+	{
+		if (gButtons[i].BtnType == 9)
+			gButtons[i].BtnType = 2;
+	}
+	gButtons[reversi->board.AIx*8 + reversi->board.AIy].BtnType = 9;
 	reversi->Move(reversi->board.AIx, reversi->board.AIy);
 }
 

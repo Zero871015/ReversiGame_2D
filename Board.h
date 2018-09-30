@@ -1,6 +1,6 @@
 // Name: Zero871015(B10615032)
 // Date: 2018/09/18
-// Last Update: 2018/09/20
+// Last Update: 2018/09/30
 // Problem statement: Board control, including record system.
 
 #pragma once

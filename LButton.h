@@ -1,3 +1,12 @@
+// Name: Zero871015 (B10615032)
+// Date: 2018/09/30
+// Last Update: 2018/09/30
+// Problem statement: SDL Button Class
+//-----------------------------------------------------------------
+/*This source code copyrighted by Lazy Foo' Productions (2004-2015)
+and may not be redistributed without written permission.*/
+//-----------------------------------------------------------------
+
 #pragma once
 #include <SDL.h>
 #include <string>
@@ -14,7 +23,7 @@ enum LButtonSprite
 	BUTTON_SPRITE_TOTAL = 4
 };
 
-extern LTexture gButtonSpriteSheetTexture[9];
+extern LTexture gButtonSpriteSheetTexture[10];
 extern SDL_Rect gSpriteClips[BUTTON_SPRITE_TOTAL];
 extern bool isFlip;
 

@@ -1,10 +1,15 @@
 // Name: Zero871015(B10615032)
 // Date: 2018/09/18
-// Last Update: 2018/09/20
+// Last Update: 2018/09/30
 // Problem statement: Reversi Game System
 
 #pragma once
 #include "Board.h"
+#include "LButton.h"
+#include <SDL_mixer.h>
+extern LButton gButtons[64];
+extern Mix_Chunk *gSniper;
+
 class Reversi
 {
 public:

@@ -1,6 +1,6 @@
 // Name: Zero871015(B10615032)
 // Date: 2018/09/18
-// Last Update: 2018/09/20
+// Last Update: 2018/09/30
 // Problem statement: Board control, including record system.
 
 #include "Board.h"
@@ -53,6 +53,11 @@ void Board::NewGame()
 	}
 	temp.whosTurn = 1;
 	saves[0] = temp;
+	for (int i = 0; i < 64; ++i)
+	{
+		gButtons[i].BtnType = cells[i / 8][i % 8];
+		gButtons[i].render();
+	}
 }
 
 void Board::Draw()
@@ -117,6 +122,11 @@ void Board::Undo()
 		{
 			cells[i][j] = saves[nowState].board[i][j];
 		}
+	}
+	for (int i = 0; i < 64; ++i)
+	{
+		gButtons[i].BtnType = cells[i / 8][i % 8];
+		gButtons[i].render();
 	}
 	Reversi::Instance()->whosTurn = saves[nowState].whosTurn;
 }

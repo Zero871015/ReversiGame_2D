@@ -1,7 +1,11 @@
+// Name: Zero871015 (B10615032)
+// Date: 2018/09/25
+// Last Update: 2018/09/30
+// Problem statement: Reversi Game 2D in SDL
+//-----------------------------------------------------------------
 /*This source code copyrighted by Lazy Foo' Productions (2004-2015)
 and may not be redistributed without written permission.*/
-
-//Using SDL, SDL_image, standard IO, and strings
+//-----------------------------------------------------------------
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -63,7 +67,8 @@ enum LButtonType
 	BUTTON_TYPE_REDO = 6,
 	BUTTON_TYPE_FLIP = 7,
 	BUTTON_TYPE_EXIT = 8,
-	BUTTON_TYPE_TOTAL = 9
+	BUTTON_TYPE_AIHINT = 9,
+	BUTTON_TYPE_TOTAL = 10
 };
 
 //Mouse button sprites
@@ -76,6 +81,7 @@ LButton gFButtons[TOTAL_F_BUTTONS];
 
 //The music that will be played
 Mix_Music *gMusic = NULL;
+Mix_Chunk *gSniper = NULL;
 
 bool LTexture::loadFromFile(std::string path)
 {
@@ -267,12 +273,23 @@ bool loadMedia()
 		printf("Failed to load button sprite texture!\n");
 		success = false;
 	}
+	else if (!gButtonSpriteSheetTexture[9].loadFromFile("resourse/AIBlack.png"))
+	{
+		printf("Failed to load button sprite texture!\n");
+		success = false;
+	}
 	else
 	{
 		gMusic = Mix_LoadMUS("resourse/Fortnite_BattleBus Birthday Theme.mp3");
 		if (gMusic == NULL)
 		{
 			printf("Failed to load music!\n");
+			success = false;
+		}
+		gSniper = Mix_LoadWAV("resourse/SniperSoundEffect.mp3");
+		if (gSniper == NULL)
+		{
+			printf("Failed to load sound!\n");
 			success = false;
 		}
 		gFont = TTF_OpenFont("resourse/kaiu.ttf",28);
@@ -347,6 +364,8 @@ void close()
 
 	Mix_FreeMusic(gMusic);
 	gMusic = NULL;
+	Mix_FreeChunk(gSniper);
+	gSniper = NULL;
 	//Quit SDL subsystems
 	Mix_Quit();
 	IMG_Quit();
@@ -374,7 +393,7 @@ int main(int argc, char* args[])
 
 			//Event handler
 			SDL_Event e;
-
+			Mix_VolumeMusic(10);
 			Mix_PlayMusic(gMusic, 1);
 
 			//While application is running
@@ -413,7 +432,8 @@ int main(int argc, char* args[])
 				}
 				for (int i = 0; i < TOTAL_BUTTONS; ++i)
 				{
-					gButtons[i].BtnType = reversi->board.cells[i / 8][i % 8];
+					if(gButtons[i].BtnType!=9)
+						gButtons[i].BtnType = reversi->board.cells[i / 8][i % 8];
 					gButtons[i].render();
 				}
 				for (int i = 0; i < BUTTON_SPRITE_TOTAL; ++i)
